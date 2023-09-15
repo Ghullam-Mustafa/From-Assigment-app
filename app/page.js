@@ -2,40 +2,40 @@
 
 import React,{ useState } from "react"
 
+
+const initialState = {
+  name: "",
+  email: "",
+  phoneNumber: "",
+  dateOfBirth: "" ,
+  gender: "",
+  address: "",
+  programIntrested:"",
+}
+
+
 export default function Home() {
 
-  const [dstail , setDetail] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
-    dateOfBirth: "" ,
-    gender: "",
-    address: "",
-    programIntrested:"",
-  });
+  const [state, setState]= useState(initialState);
+  const [data, setData] = useState([]);
 
   const handleChange = (e) =>{
-    const {name ,value} = e.target;
+    setState((s)=>({...s,[e.target.name]:e.target.value}))
+  
+    
   }
 
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [dateOfBirth, setDateOfBirth] = useState();
-  const [gender, setGender] = useState();
-  const [address, setAddress] = useState();
-  const [programIntrested, setProgrameIntrested] = useState();
+
 
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Phone Number:', phoneNumber);
-    console.log('Date of Birth:', dateOfBirth);
-    console.log('Gender:', gender);
-    console.log('Address:', address);
-    console.log('Program of Interest:', programIntrested);
+    let array = []
+    e.preventDefault();
+   
+    array.push(state)
+    setData(array)
+   
+    console.log(array);
   }
 
   return (
@@ -49,8 +49,10 @@ export default function Home() {
           <input
             type="text"
             id="name"
+            
             name="name"
-            onChange={(e)=> setName(e.target.value) }
+       
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             placeholder="Enter your name"
           />
@@ -62,7 +64,8 @@ export default function Home() {
           <input
             type="email"
             id="email"
-            onChange={(e)=> setEmail(e.target.value) }
+           
+            onChange={handleChange}
             name="email"
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             placeholder="Enter your email"
@@ -76,7 +79,8 @@ export default function Home() {
             type="tel"
             id="phoneNumber"
             name="phoneNumber"
-            onChange={(e)=> setPhoneNumber(e.target.value) }
+           
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             placeholder="Enter your phone number"
           />
@@ -88,8 +92,10 @@ export default function Home() {
           <input
             type="date"
             id="dateOfBirth"
+           
+            onChange={handleChange}
             name="dateOfBirth"
-            onChange={(e)=> setDateOfBirth(e.target.value) }
+            
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -100,7 +106,8 @@ export default function Home() {
           <select
             id="gender"
             name="gender"
-            onChange={(e)=> setGender(e.target.value) }
+         
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
           >
             <option value="male">Male</option>
@@ -115,7 +122,8 @@ export default function Home() {
           <textarea
             id="address"
             name="address"
-            onChange={(e)=> setAddress(e.target.value) }
+      
+            onChange={handleChange}
             rows="3"
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             placeholder="Enter your address"
@@ -128,7 +136,8 @@ export default function Home() {
           <select
             id="programIntrested"
             name="programIntrested"
-            onChange={(e) => setProgrameIntrested(e.target.value)}
+       
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
           >
             <option value="computer-science">Computer Science</option>
@@ -139,7 +148,6 @@ export default function Home() {
         <div className="text-center">
           <button
             type="submit"
-           
             className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
           >
             Submit
@@ -147,17 +155,19 @@ export default function Home() {
         </div>
       </form>
 
-<div className="">
-  <p>{name}</p>
-  <p>{email}</p>
-  <p>{phoneNumber}</p> 
-  <p>{dateOfBirth}</p>
-  <p>{gender}</p>
-  <p>{address}</p>
-  <p>{programIntrested}</p>
 
-</div>
 
+          
+          <div className="bg-dark p-5 flex justify-center"> 
+          {data.map((item,i)=>{
+                return <div key={i}>
+                   name:{item.name}
+                   phoneNumber:{item.phoneNumber}
+                   address:{item.address}
+                
+                </div>
+            })}
+          </div>
 
     </>
   )
