@@ -1,41 +1,47 @@
 "use client"
 
-import React,{ useState } from "react"
+import React, { useState } from "react"
 
 
 const initialState = {
   name: "",
   email: "",
   phoneNumber: "",
-  dateOfBirth: "" ,
+  dateOfBirth: "",
   gender: "",
   address: "",
-  programIntrested:"",
+  programIntrested: "",
 }
 
 
 export default function Home() {
 
-  const [state, setState]= useState(initialState);
+  const [state, setState] = useState(initialState);
   const [data, setData] = useState([]);
 
-  const handleChange = (e) =>{
-    setState((s)=>({...s,[e.target.name]:e.target.value}))
-  
-    
+  const handleChange = (e) => {
+    setState((s) => ({ ...s, [e.target.name]: e.target.value }))
+
+
   }
 
 
 
 
+  // const handleSubmit = (e) => {
+  //   let array = []
+  //   e.preventDefault();
+
+  //   array.push(state)
+  //   setData(array)
+
+  //   console.log(array);
+  // }
+
   const handleSubmit = (e) => {
-    let array = []
     e.preventDefault();
-   
-    array.push(state)
-    setData(array)
-   
-    console.log(array);
+    setData((prevData) => [...prevData, state]);
+    setState(initialState); // Reset the form fields
   }
 
   return (
@@ -49,9 +55,9 @@ export default function Home() {
           <input
             type="text"
             id="name"
-            
+
             name="name"
-       
+
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             placeholder="Enter your name"
@@ -64,7 +70,7 @@ export default function Home() {
           <input
             type="email"
             id="email"
-           
+
             onChange={handleChange}
             name="email"
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
@@ -79,7 +85,7 @@ export default function Home() {
             type="tel"
             id="phoneNumber"
             name="phoneNumber"
-           
+
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             placeholder="Enter your phone number"
@@ -87,15 +93,15 @@ export default function Home() {
         </div>
         <div className="mb-4">
           <label htmlFor="dob" className="block text-gray-800 font-semibold mb-2">
-            Date of Birth
+            Date of Birtd
           </label>
           <input
             type="date"
-            id="dateOfBirth"
-           
+            id="dateOfBirtd"
+
             onChange={handleChange}
             name="dateOfBirth"
-            
+
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -106,7 +112,7 @@ export default function Home() {
           <select
             id="gender"
             name="gender"
-         
+
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
           >
@@ -122,7 +128,7 @@ export default function Home() {
           <textarea
             id="address"
             name="address"
-      
+
             onChange={handleChange}
             rows="3"
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
@@ -136,7 +142,7 @@ export default function Home() {
           <select
             id="programIntrested"
             name="programIntrested"
-       
+
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
           >
@@ -157,17 +163,70 @@ export default function Home() {
 
 
 
-          
-          <div className="bg-dark p-5 flex justify-center"> 
-          {data.map((item,i)=>{
-                return <div key={i}>
-                   name:{item.name}
-                   phoneNumber:{item.phoneNumber}
-                   address:{item.address}
-                
-                </div>
+ 
+       <div className="container mx-auto p-8">
+      <div className="overflow-x-auto">
+        <table className="min-w-full">
+          <thead>
+            <tr>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">#</th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Name</th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Email</th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Phone Number</th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Date Of Birth</th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Gender</th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Address</th>
+              <th className="px-6 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Program of Interest</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, i) => {
+              return (
+                <tr key={i}>
+                  <td className="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-600">
+                    {i + 1}
+                  </td>
+                  <td className="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-600">
+                    {item.name}
+                  </td>
+                  <td className="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-600">
+                    {item.email}
+                  </td>
+                  <td className="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-600">
+                    {item.phoneNumber}
+                  </td>
+                  <td className="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-600">
+                    {item.dateOfBirth}
+                  </td>
+                  <td className="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-600">
+                    {item.gender}
+                  </td>
+                  <td className="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-600">
+                    {item.address}
+                  </td>
+                  <td className="px-6 py-3 border-b border-gray-300 text-left text-xs leading-4 font-medium text-gray-600">
+                    {item.programIntrested}
+                  </td>
+                </tr>
+              );
             })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+      {/* <div className="bg-dark p-5 flex justify-center">
+        {data.map((item, i) => {
+          return <div key={i}>
+            name:{item.name}
+            phoneNumber:{item.phoneNumber}
+            address:{item.address}
+
           </div>
+        })}
+      </div> */}
 
     </>
   )
